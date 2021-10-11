@@ -6,9 +6,23 @@
 	<style>
 		body {font-family: sans-serif;}
 		#button-container {
-
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
-
+			#button-container button{
+					width: 100px;
+					height: 100px;
+					font-size: 20px;
+					font-weight: bold;
+				}
+				.state0{
+					background-color: #f88;
+				}
+				.state1{
+					background-color: #8f8;
+				}
 		#coding-instructions {
 			font-size: 20px;
  			margin-left: 20px;
@@ -46,8 +60,56 @@
 </html>
 
 <script>
-	function clickButton(event){
+	var comb = [[0,1], [0,2], [2], [1,3]];
 
+	var buttons = document.querySelectorAll("button");
+	var state = document.getElementById("state");
+
+	console.log(buttons);
+	for(var i = 0; i < buttons.length; i++){
+		buttons[i].setAttribute("onclick", "clickButton(this, '"+ comb[i] +"')");
+		buttons[i].innerHTML = 'No';
+		buttons[i].classList.add("state0");
+	}
+
+	state.innerHTML = 'All set to No!';
+
+	function setState(){
+		var yes = 0;
+		var no = 0;
+
+		for(var i = 0; i < buttons.length; i++){
+			if(buttons[i].classList.contains('state0')){
+				no++;
+			}else{
+				yes++;
+			}
+		}
+
+		if(yes == 4){
+			state.innerHTML = "All set to Yes!";
+		}else if(no == 4){
+			state.innerHTML = "All set to No!";
+		}else{
+			state.innerHTML = "Busy Clicking!";
+		}
+	}
+
+	function clickButton(event, comb){
+		var arr = comb.split(",");
+
+		for(var i = 0; i < arr.length; i++){
+			if(buttons[arr[i]].classList.contains('state0')){
+				buttons[arr[i]].classList.remove('state0');
+				buttons[arr[i]].classList.add('state1');
+				buttons[arr[i]].innerHTML = "Yes";
+			}else{
+				buttons[arr[i]].classList.remove("state1");
+				buttons[arr[i]].classList.add("state0");
+				buttons[arr[i]].innerHTML = "No";
+			}
+		}
+		setState();
 	}
 
 </script>
