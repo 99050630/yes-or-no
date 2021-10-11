@@ -4,11 +4,27 @@
 	<meta charset="utf-8"/>
 	<title>Yes Or No - 1</title>
 	<style>
-		body {font-family: sans-serif;}
-		#button-container {
-
+		body {
+			font-family: sans-serif;
 		}
-
+		#button-container {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+			#button-container button{
+				width: 100px;
+				height: 100px;
+				font-size: 20px;
+				font-weight: bold;
+			}
+			.state0{
+				background-color: #f88;
+			}
+			.state1{
+				background-color: #8f8;
+			}
 		#coding-instructions {
 			font-size: 20px;
  			margin-left: 20px;
@@ -23,7 +39,6 @@
 			font-size: 40px;
  			margin-left: 20px;			
 		}
-
 	</style>
 </head>
 <body>
@@ -48,8 +63,24 @@
 
 
 <script>
-	function clickButton(event){
-
+	var buttons = document.querySelectorAll("button");
+	console.log(buttons);
+	for(var i = 0; i < buttons.length; i++){
+		buttons[i].setAttribute("onclick", "clickButton(this)");
+		buttons[i].innerHTML = 'No';
+		buttons[i].classList.add("state0");
 	}
+
+	function clickButton(event){
+		if(event.classList.contains('state0')){
+			event.classList.remove('state0');
+			event.classList.add('state1');
+			event.innerHTML = "Yes";
+		}else{
+			event.classList.remove('state1');
+			event.classList.add('state0');
+			event.innerHTML = "No";
+		}
+	}	
 
 </script>
